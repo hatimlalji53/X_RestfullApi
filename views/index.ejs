@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X posts</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body> 
+    <div class="logo">
+        <img id="logo" src="/image/logo.png" alt="logo">
+    </div>
+    <div class="content">
+        <div class="newposts">
+            <form method="post" action="/posts">
+                <input name="username" id="input" type="text" placeholder="Enter Username :" name="username" required> <hr>
+                <textarea name="content" id="textarea" name="content" placeholder="What's New Here?"></textarea> <br><br>
+                <div class="inp-img-container">
+                    <label for="image-input" class="upload-btn"> &nbsp;+&nbsp; </label>
+                    <input name="image" accept="image/*" id="image-input" type="file" class="custom-file-input">
+                    <button id="submit" type="submit">&nbsp;&nbsp;Post&nbsp;&nbsp;</button>
+                </div>
+            </form> 
+        </div>
+        <% for(post of posts){ %>
+        <hr>
+        <div class="posts">
+            <h3>@<%= post.username %></h3>
+            <% if(!post.content){ %>
+            <p> . </p>
+            <% } %>
+            <% if(post.content){%>
+                <p><%= post.content %></p>
+            <%}%>
+            <% if(post.image){ %>
+            <img id="img" src=/image/<%= post.image%> alt="">
+            <% } %>
+            <br><br>
+            <div class="show-edit-container">
+                <div>
+                    <button id="submit"><a href="http://localhost:8080/posts/<%=post.id%>">show post</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button id="submit"><a href="http://localhost:8080/posts/<%=post.id%>/edit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a></button>
+                </div>
+                <div>
+                    <form method="post" action="/posts/<%=post.id%>?_method=Delete">
+                    <button id="submit" type="submit">&nbsp;Delete&nbsp;</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <% } %>
+    </div>
+
+    <!-- <script src="/app.js"></script> -->
+</body>
+</html>
